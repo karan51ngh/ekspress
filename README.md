@@ -4,9 +4,62 @@ HTTP servers are software applications or programs that handle **HTTP (Hypertext
 - HTTP servers operate on the **client-server model**, where the server listens for incoming HTTP requests from clients and responds with the requested content or appropriate error messages.
 - This can involve accessing files on the server's file system, interacting with a database, running server-side scripts, or generating dynamic content.
 - When a client makes an HTTP request, it includes a specific HTTP method (such as GET, POST, PUT, DELETE) and a Uniform Resource Identifier (URI) that identifies the resource being requested.
+- To initialize a HTTP Server using Express, use the following code snipet:
+    - Import express and create an instance of the Express application
+        ```js
+        const express = require('express');     
+        const app = express();                  
+        ```
+    - Specify a port number on which the server should listen
+        ```js
+        const port = 3000;
+        ```
+    - `app.listen(port, [callback])` function in Express is used to start the server and make it listen for incoming HTTP requests. 
+    - It takes a port number and an optional callback function as arguments.
+    - Express starts a server on the specified port and begins listening for incoming requests on that port. 
+    - If the server is able to start successfully, it will execute the callback function (if provided) and log a message indicating that the server is listening.
+        ```js
+        app.listen(port, () => {
+            console.log(`Server listening on port ${port}`);
+        });
+        ```
+
 - **HTTP (Hypertext Transfer Protocol)** defines several request methods or verbs that clients (web browsers or other applications) can use to communicate with HTTP servers. Each request method serves a specific purpose and instructs the server on what action to perform.
-    - **GET method** is a representation of the specified resource. It retrieves data from the server without modifying it. GET requests should be idempotent, meaning they should not have any side effects on the server or the requested resource. For example, retrieving a web page or an image using a URL.
-    - **POST method** is used to submit data to the server. It sends data to the server to be processed and potentially stored. It can be used for various purposes like submitting forms, uploading files, or creating new resources on the server.
+    - **GET method** 
+        - GET method is a representation of the specified resource. It retrieves data from the server without modifying it. 
+        - GET requests should be idempotent, meaning they should not have any side effects on the server or the requested resource. 
+        - For example, retrieving a web page or an image using a URL. 
+        - When you enter a URL in your web browser or click on a link, the browser sends a GET request by default to the server to retrieve the requested resource (such as a web page or a file).
+            ```js
+            // Define a route for a GET request
+            app.get('/books', (req, res) => {
+              // Handle the GET request logic here
+              // Example response - sending a JSON object as the response
+              const books = [
+                { id: 1, title: 'Book 1' },
+                { id: 2, title: 'Book 2' },
+                { id: 3, title: 'Book 3' }
+              ];
+            
+              res.json(books);
+            });
+            ```
+    - **POST method** 
+        - POST method is used to submit data to the server. It sends data to the server to be processed and potentially stored. 
+        - It can be used for various purposes like submitting forms, uploading files, or creating new resources on the server.
+            ```js
+            app.post('/books', (req, res) => {
+            
+            // Retrieve data from req.body
+            const { title, author } = req.body;
+            
+            // Example logic to save the book to a database
+            const savedBook = saveBookToDatabase(title, author);
+            
+            // Example response - sending a JSON object as the response
+            res.json(savedBook);
+            });
+            ```
     - **PUT method** is used to upload or update a resource on the server. It replaces the entire representation of the specified resource with the content provided in the request. If the resource does not exist, PUT may create a new resource with the specified URI.
     - **DELETE method** is used to request the removal of the specified resource on the server. It instructs the server to delete the resource identified by the given URI.
         
@@ -26,31 +79,39 @@ In the context of web development, a **route** refers to a specific URL path or 
 - It helps determine how the application responds to different **requests** made by users or other services.
 - developers often define routes to **handle** various actions or functionalities. For example, a route might be responsible for rendering a specific webpage, processing form data submitted by a user, or retrieving data from a database.
 - Here are a few examples of routes in Express (a Node.js web application framework):
-    - Basic route:
-    ```js
-    const express = require('express');
-    const app = express();
-    
-    app.get('/', (req, res) => {
-      res.send('Hello Friend!');
-    });
-    
-    app.listen(3000, () => {
-      console.log('Server is running on port 3000');
-    });
-    ```
-    In this example, a GET request to the root URL (/) will trigger the callback function, which sends the response with the text "Hello Friend!".
-    - Route with URL parameters
-    ```js
-    app.get('/users/:id', (req, res) => {
-      const userId = req.params.id;
-      res.send(`User ID: ${userId}`);
-    });
-    ```
-    - Handling POST requests
-    ```js
-    app.post('/users', (req, res) => {
-      // Code to handle the creation of a new user
-      res.send('User created successfully');
-    });
-    ```
+    - Root URL route (/) with a GET Handler:
+        ```js
+        app.get('/', (req, res) => {
+          res.send('Hello Friend!');
+        });
+        ```
+    - Route with URL parameters with a POST Handler
+        ```js
+        app.post('/users/:id', (req, res) => {
+          const userId = req.params.id;
+          res.send(`User ID: ${userId}`);
+        });
+        ```
+
+### HTTP request parameters
+HTTP request parameters are additional pieces of data that can be included in an HTTP request to provide additional information or context to the server. These parameters are typically sent as part of the URL or in the body of the request.
+- **HTTP Query Parameters**: 
+    - HTTP query parameters are a way to pass additional information to a server when making an HTTP request. 
+    -They are appended to the URL as key-value pairs and separated by the **"?"** symbol. 
+    - Each parameter consists of a key and a value, separated by the **"="** symbol, and multiple parameters are separated by the **"&"** symbol.
+        ```js
+        app.get('/search', (req, res) => {
+        const searchTerm = req.query.q;
+        const page = req.query.page;
+        // Perform some processing based on the query parameters
+        // For example, searching a database using the searchTerm and retrieving specific page results
+        
+        // Send a response back to the client
+        res.send(`Searching for '${searchTerm}' on page ${page}`);
+        });
+        app.listen(3000);
+        ```
+  - when a **GET request** is made to the "/search" route with query parameters, the Express application will receive the request and execute the provided callback function.
+  - The **req** object represents the incoming request, and the **res** object represents the response that will be sent back to the client.
+  - If you make a GET request to http://localhost:3000/search?q=example&page=1, the server will respond with `"Searching for 'example' on page 1"`.
+  
