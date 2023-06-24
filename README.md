@@ -24,44 +24,45 @@ HTTP servers are software applications or programs that handle **HTTP (Hypertext
         });
         ```
 
-- **HTTP (Hypertext Transfer Protocol)** defines several request methods or verbs that clients (web browsers or other applications) can use to communicate with HTTP servers. Each request method serves a specific purpose and instructs the server on what action to perform.
-    - **GET method** 
-        - GET method is a representation of the specified resource. It retrieves data from the server without modifying it. 
-        - GET requests should be idempotent, meaning they should not have any side effects on the server or the requested resource. 
-        - For example, retrieving a web page or an image using a URL. 
-        - When you enter a URL in your web browser or click on a link, the browser sends a GET request by default to the server to retrieve the requested resource (such as a web page or a file).
-            ```js
-            // Define a route for a GET request
-            app.get('/books', (req, res) => {
-              // Handle the GET request logic here
-              // Example response - sending a JSON object as the response
-              const books = [
-                { id: 1, title: 'Book 1' },
-                { id: 2, title: 'Book 2' },
-                { id: 3, title: 'Book 3' }
-              ];
-            
-              res.json(books);
-            });
-            ```
-    - **POST method** 
-        - POST method is used to submit data to the server. It sends data to the server to be processed and potentially stored. 
-        - It can be used for various purposes like submitting forms, uploading files, or creating new resources on the server.
-            ```js
-            app.post('/books', (req, res) => {
-            
-            // Retrieve data from req.body
-            const { title, author } = req.body;
-            
-            // Example logic to save the book to a database
-            const savedBook = saveBookToDatabase(title, author);
-            
-            // Example response - sending a JSON object as the response
-            res.json(savedBook);
-            });
-            ```
-    - **PUT method** is used to upload or update a resource on the server. It replaces the entire representation of the specified resource with the content provided in the request. If the resource does not exist, PUT may create a new resource with the specified URI.
-    - **DELETE method** is used to request the removal of the specified resource on the server. It instructs the server to delete the resource identified by the given URI.
+### HTTP Request Methods
+**HTTP (Hypertext Transfer Protocol)** defines several request methods or verbs that clients (web browsers or other applications) can use to communicate with HTTP servers. Each request method serves a specific purpose and instructs the server on what action to perform.
+- **GET method** 
+    - GET method is a representation of the specified resource. It retrieves data from the server without modifying it. 
+    - GET requests should be idempotent, meaning they should not have any side effects on the server or the requested resource. 
+    - For example, retrieving a web page or an image using a URL. 
+    - When you enter a URL in your web browser or click on a link, the browser sends a GET request by default to the server to retrieve the requested resource (such as a web page or a file).
+        ```js
+        // Define a route for a GET request
+        app.get('/books', (req, res) => {
+          // Handle the GET request logic here
+          // Example response - sending a JSON object as the response
+          const books = [
+            { id: 1, title: 'Book 1' },
+            { id: 2, title: 'Book 2' },
+            { id: 3, title: 'Book 3' }
+          ];
+        
+          res.json(books);
+        });
+        ```
+- **POST method** 
+    - POST method is used to submit data to the server. It sends data to the server to be processed and potentially stored. 
+    - It can be used for various purposes like submitting forms, uploading files, or creating new resources on the server.
+        ```js
+        app.post('/books', (req, res) => {
+        
+        // Retrieve data from req.body
+        const { title, author } = req.body;
+        
+        // Example logic to save the book to a database
+        const savedBook = saveBookToDatabase(title, author);
+        
+        // Example response - sending a JSON object as the response
+        res.json(savedBook);
+        });
+        ```
+- **PUT method** is used to upload or update a resource on the server. It replaces the entire representation of the specified resource with the content provided in the request. If the resource does not exist, PUT may create a new resource with the specified URI.
+- **DELETE method** is used to request the removal of the specified resource on the server. It instructs the server to delete the resource identified by the given URI.
         
 ### URI
 A Uniform Resource Identifier **(URI)** is a string of characters that identifies or locates a resource on the internet. It is a standard way to uniquely identify and address resources such as web pages, images, videos, documents, and other types of files. URIs are used by web browsers, web servers, and other applications to interact with resources on the internet.
