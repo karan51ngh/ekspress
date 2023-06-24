@@ -194,3 +194,96 @@ Middleware refers to a series of functions or pieces of code that can be applied
       res.send('This is a secret page!');
     });
     ```
+### HTTP Status Codes
+HTTP status codes are three-digit numbers that are returned by a web server to indicate the status of a client's request. These codes are a part of the HTTP (Hypertext Transfer Protocol) protocol and provide information about the outcome of a particular HTTP transaction. Here are some commonly encountered HTTP status codes:
+- 1xx Informational
+    - 100 Continue: The initial part of the request has been received, and the client should proceed with the rest of the request.
+- 2xx Success
+    - 200 OK: The request was successful, and the server has returned the requested resource.
+    - 201 Created: The request was successful, and a new resource was created as a result.
+    - 204 No Content: The request was successful, but there is no content to send back.
+- 3xx Redirection
+    - 301 Moved Permanently: The requested resource has been permanently moved to a new location.
+    - 302 Found: The requested resource has been temporarily moved to a different location.
+    - 304 Not Modified: The client's cached version of the resource is still valid, and there is no need to send the requested resource again.
+- 4xx Client Errors
+    - 400 Bad Request: The server cannot understand the client's request due to malformed syntax or other errors.
+    - 401 Unauthorized: The request requires user authentication.
+    - 404 Not Found: The requested resource could not be found on the server.
+- 5xx Server Errors
+    - 500 Internal Server Error: A generic server error occurred, and the server was unable to fulfill the request.
+    - 502 Bad Gateway: The server acting as a gateway or proxy received an invalid response from an upstream server.
+    - 503 Service Unavailable: The server is temporarily unable to handle the request due to maintenance or overload.
+    ```js
+    app.get('/', (req, res) => {
+      res.status(200).send('OK');
+    });
+    
+    app.get('/notfound', (req, res) => {
+      res.status(404).send('Not Found');
+    });
+    
+    app.get('/servererror', (req, res) => {
+      res.status(500).send('Internal Server Error');
+    });
+    
+    app.listen(3000, () => {
+      console.log('Server is running on port 3000');
+    });
+    
+    /*
+        res.status(200).send('OK'); this is function currying (1 call after other)
+    */
+
+    ```
+### HTTP response body
+The HTTP response body refers to the content that is sent back to the client as part of an HTTP response. The response body contains the data or information that the server wants to communicate to the client, such as HTML, JSON, text
+- To send a response body in Express, you can use the `res` object provided by the framework. 
+- The `res` object represents the HTTP response and allows you to set various properties and methods to customize the response.
+- An example of sending a simple text response:
+    ```js
+    app.get('/', (req, res) => {
+      res.send('Hello Friend!');
+    });
+    ```
+- An example of sending a JSON object response:
+    ```js
+    app.get('/user', (req, res) => {
+      const user = { name: 'karan51ngh', age: 21 };
+      res.json(user);
+    });
+    
+    ```
+- An example of sending an HTML response:
+    ```js
+    app.get('/', (req, res) => {
+      const htmlContent = `
+        <html>
+          <head>
+            <title>My Web Page</title>
+          </head>
+          <body>
+            <h1>Welcome to my website!</h1>
+            <p>This is a sample HTML response.</p>
+          </body>
+        </html>
+      `;
+      
+      res.send(htmlContent);
+    });
+    ```
+    - You can also send HTML as a string:
+        ```js
+        app.get('/', (req, res) => {
+          res.send("<html><head><title>My Web Page</title></head><body><h1>Welcome to my website!</h1><p>This is a sample HTML response.</p></body></html>");
+        });
+        ```
+    - You can also send HTML as a file:
+        ```js
+        
+        
+        app.get('/', (req, res) => {
+         const filePath = path.join(__dirname, 'public', 'index.html');
+         res.sendFile(filePath);
+        });
+        ```
