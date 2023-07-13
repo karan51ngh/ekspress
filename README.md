@@ -1,3 +1,13 @@
+### Index:
+- [HTTP Server](#http-servers)
+- [HTTP Request Methods](#http-request-methods)
+- [URI](#uri)
+- [Route](#route)
+- [HTTP Request Parameters](#http-request-parameters)
+- [Middleware](#middleware)
+- [HTTP Status Codes](#http-status-codes)
+- [HTTP Response Body](#http-response-body)
+
 ### HTTP Servers
 HTTP servers are software applications or programs that handle **HTTP (Hypertext Transfer Protocol)** requests and responses. They are responsible for delivering web content, such as web pages, images, files, and other resources, to clients (web browsers) that request them.
 
@@ -94,7 +104,7 @@ In the context of web development, a **route** refers to a specific URL path or 
         });
         ```
 
-### HTTP request parameters
+### HTTP Request Parameters
 HTTP request parameters are additional pieces of data that can be included in an HTTP request to provide additional information or context to the server. These parameters are typically sent as part of the URL or in the body of the request.
 - **HTTP Query Parameters**:
     - These are key-value pairs appended to the URL after a question mark.
@@ -236,7 +246,7 @@ HTTP status codes are three-digit numbers that are returned by a web server to i
     */
 
     ```
-### HTTP response body
+### HTTP Response Body
 The HTTP response body refers to the content that is sent back to the client as part of an HTTP response. The response body contains the data or information that the server wants to communicate to the client, such as HTML, JSON, text
 - To send a response body in Express, you can use the `res` object provided by the framework. 
 - The `res` object represents the HTTP response and allows you to set various properties and methods to customize the response.
