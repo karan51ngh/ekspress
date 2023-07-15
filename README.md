@@ -1,12 +1,20 @@
 ### Index:
 - [HTTP Server](#http-servers)
 - [HTTP Request Methods](#http-request-methods)
+  - [GET method](#get-method)
+  - [POST method](#post-method)
+  - [PUT method](#put-method)
+  - [DELETE method](#delete-method)
 - [URI](#uri)
 - [Route](#route)
 - [HTTP Request Parameters](#http-request-parameters)
+  - [HTTP Query Parameters](#http-query-parameters)
+  - [HTTP Headers](#http-headers)
+  - [Body](#body)
 - [Middleware](#middleware)
 - [HTTP Status Codes](#http-status-codes)
 - [HTTP Response Body](#http-response-body)
+- [CORS](#cors)
 
 ### HTTP Servers
 HTTP servers are software applications or programs that handle **HTTP (Hypertext Transfer Protocol)** requests and responses. They are responsible for delivering web content, such as web pages, images, files, and other resources, to clients (web browsers) that request them.
@@ -36,7 +44,7 @@ HTTP servers are software applications or programs that handle **HTTP (Hypertext
 
 ### HTTP Request Methods
 **HTTP (Hypertext Transfer Protocol)** defines several request methods or verbs that clients (web browsers or other applications) can use to communicate with HTTP servers. Each request method serves a specific purpose and instructs the server on what action to perform.
-- **GET method** 
+- ##### **GET method** 
     - GET method is a representation of the specified resource. It retrieves data from the server without modifying it. 
     - GET requests should be idempotent, meaning they should not have any side effects on the server or the requested resource. 
     - For example, retrieving a web page or an image using a URL. 
@@ -55,7 +63,7 @@ HTTP servers are software applications or programs that handle **HTTP (Hypertext
           res.json(books);
         });
         ```
-- **POST method** 
+- ##### **POST method** 
     - POST method is used to submit data to the server. It sends data to the server to be processed and potentially stored. 
     - It can be used for various purposes like submitting forms, uploading files, or creating new resources on the server.
         ```js
@@ -71,8 +79,10 @@ HTTP servers are software applications or programs that handle **HTTP (Hypertext
         res.json(savedBook);
         });
         ```
-- **PUT method** is used to upload or update a resource on the server. It replaces the entire representation of the specified resource with the content provided in the request. If the resource does not exist, PUT may create a new resource with the specified URI.
-- **DELETE method** is used to request the removal of the specified resource on the server. It instructs the server to delete the resource identified by the given URI.
+- ##### **PUT method** 
+    - PUT method is used to upload or update a resource on the server. It replaces the entire representation of the specified resource with the content provided in the request. If the resource does not exist, PUT may create a new resource with the specified URI.
+- ##### **DELETE method** 
+    - DELETE method is used to request the removal of the specified resource on the server. It instructs the server to delete the resource identified by the given URI.
         
 ### URI
 A Uniform Resource Identifier **(URI)** is a string of characters that identifies or locates a resource on the internet. It is a standard way to uniquely identify and address resources such as web pages, images, videos, documents, and other types of files. URIs are used by web browsers, web servers, and other applications to interact with resources on the internet.
@@ -106,7 +116,7 @@ In the context of web development, a **route** refers to a specific URL path or 
 
 ### HTTP Request Parameters
 HTTP request parameters are additional pieces of data that can be included in an HTTP request to provide additional information or context to the server. These parameters are typically sent as part of the URL or in the body of the request.
-- **HTTP Query Parameters**:
+- ##### **HTTP Query Parameters**:
     - These are key-value pairs appended to the URL after a question mark.
     - HTTP query parameters are a way to pass additional information to a server when making an HTTP request. 
     - They are appended to the URL as key-value pairs and separated by the **"?"** symbol. 
@@ -126,7 +136,7 @@ HTTP request parameters are additional pieces of data that can be included in an
   - when a **GET request** is made to the "/search" route with query parameters, the Express application will receive the request and execute the provided callback function.
   - The **req** object represents the incoming request, and the **res** object represents the response that will be sent back to the client.
   - If you make a GET request to http://localhost:3000/search?q=example&page=1, the server will respond with `"Searching for 'example' on page 1"`.
-- **HTTP Headers**:
+- ##### **HTTP Headers**:
     - HTTP headers are additional pieces of information sent along with an HTTP request or response between a client (such as a web browser) and a server.
     - These headers provide instructions, metadata, or control information about the request or response being exchanged.
     - HTTP headers can be used to send data in the request and response objects. We send custom headers.
@@ -142,7 +152,7 @@ HTTP request parameters are additional pieces of data that can be included in an
         });
 
         ```
-- **Body**:
+- ##### **Body**:
     - Body: The body is a component of an HTTP request, typically used with POST, PUT, and PATCH methods to send data from the client to the server. 
     - It carries the payload or content of the request and is separate from query parameters or headers. 
     - The request body can contain various data formats such as JSON, XML, or form data, depending on the application's requirements. For example, when submitting a form on a website, the form data is usually included in the request body.
@@ -164,8 +174,8 @@ HTTP request parameters are additional pieces of data that can be included in an
         ```
 
 ### Middleware
-Middleware refers to a series of functions or pieces of code that can be applied to the incoming requests and outgoing responses in a web application. 
-- Middleware functions are **executed sequentially**, and they have access to the request and response objects as well as the next middleware function in the chain.
+Middleware refers to a **series of functions** or pieces of code that can be applied to the **incoming requests** and **outgoing responses** in a web application. 
+- Middleware functions are **executed sequentially**, and they have access to the **request** and **response** objects as well as the **next** middleware function in the chain.
 - Middleware functions can perform various tasks, such as logging, authentication, handling errors, parsing request bodies, modifying request or response data etc. 
 - They provide a way to modularize and separate concerns in an application by allowing developers to add reusable code to the request-response cycle.
 - Once the request passes through all the registered middleware functions, it reaches the appropriate route handler based on the request's URL and HTTP method.
@@ -204,23 +214,24 @@ Middleware refers to a series of functions or pieces of code that can be applied
       res.send('This is a secret page!');
     });
     ```
+
 ### HTTP Status Codes
-HTTP status codes are three-digit numbers that are returned by a web server to indicate the status of a client's request. These codes are a part of the HTTP (Hypertext Transfer Protocol) protocol and provide information about the outcome of a particular HTTP transaction. Here are some commonly encountered HTTP status codes:
-- 1xx Informational
+HTTP status codes are **three-digit numbers** that are returned by a web server to indicate the **status of a client's request**. These codes are a part of the HTTP (Hypertext Transfer Protocol) protocol and provide information about the outcome of a particular HTTP transaction. Here are some commonly encountered HTTP status codes:
+- **1xx Informational**
     - 100 Continue: The initial part of the request has been received, and the client should proceed with the rest of the request.
-- 2xx Success
+- **2xx Success**
     - 200 OK: The request was successful, and the server has returned the requested resource.
     - 201 Created: The request was successful, and a new resource was created as a result.
     - 204 No Content: The request was successful, but there is no content to send back.
-- 3xx Redirection
+- **3xx Redirection**
     - 301 Moved Permanently: The requested resource has been permanently moved to a new location.
     - 302 Found: The requested resource has been temporarily moved to a different location.
     - 304 Not Modified: The client's cached version of the resource is still valid, and there is no need to send the requested resource again.
-- 4xx Client Errors
+- **4xx Client Errors**
     - 400 Bad Request: The server cannot understand the client's request due to malformed syntax or other errors.
     - 401 Unauthorized: The request requires user authentication.
     - 404 Not Found: The requested resource could not be found on the server.
-- 5xx Server Errors
+- **5xx Server Errors**
     - 500 Internal Server Error: A generic server error occurred, and the server was unable to fulfill the request.
     - 502 Bad Gateway: The server acting as a gateway or proxy received an invalid response from an upstream server.
     - 503 Service Unavailable: The server is temporarily unable to handle the request due to maintenance or overload.
@@ -246,17 +257,18 @@ HTTP status codes are three-digit numbers that are returned by a web server to i
     */
 
     ```
+
 ### HTTP Response Body
-The HTTP response body refers to the content that is sent back to the client as part of an HTTP response. The response body contains the data or information that the server wants to communicate to the client, such as HTML, JSON, text
+The **HTTP response body** refers to the content that is sent back to the client as part of an HTTP response. The response body contains the data or information that the server wants to communicate to the client, such as HTML, JSON, text
 - To send a response body in Express, you can use the `res` object provided by the framework. 
 - The `res` object represents the HTTP response and allows you to set various properties and methods to customize the response.
-- An example of sending a simple text response:
+- An example of sending a **simple text response**:
     ```js
     app.get('/', (req, res) => {
       res.send('Hello Friend!');
     });
     ```
-- An example of sending a JSON object response:
+- An example of sending a **JSON object response**:
     ```js
     app.get('/user', (req, res) => {
       const user = { name: 'karan51ngh', age: 21 };
@@ -264,7 +276,7 @@ The HTTP response body refers to the content that is sent back to the client as 
     });
     
     ```
-- An example of sending an HTML response:
+- An example of sending an **HTML response**:
     ```js
     app.get('/', (req, res) => {
       const htmlContent = `
@@ -282,13 +294,13 @@ The HTTP response body refers to the content that is sent back to the client as 
       res.send(htmlContent);
     });
     ```
-    - You can also send HTML as a string:
+    - You can also send **HTML as a string**:
         ```js
         app.get('/', (req, res) => {
           res.send("<html><head><title>My Web Page</title></head><body><h1>Welcome to my website!</h1><p>This is a sample HTML response.</p></body></html>");
         });
         ```
-    - You can also send HTML as a file:
+    - You can also send **HTML as a file**:
         ```js
         
         
@@ -297,3 +309,39 @@ The HTTP response body refers to the content that is sent back to the client as 
          res.sendFile(filePath);
         });
         ```
+
+### CORS
+**CORS** stands for **Cross-Origin Resource Sharing**. It is a mechanism implemented in web browsers to **control and limit access to resources** (such as data or assets) on a web page that are requested from a **different origin** (domain, protocol, or port) than the one the page itself originated from.
+- By default, web browsers adhere to the **same-origin policy**, which restricts JavaScript code in a web page from making requests to a different origin.
+- CORS enables **controlled access** to such resources by using HTTP headers to define which origins are allowed to access the resources on a server. 
+- When a web browser makes a cross-origin request, it sends an HTTP OPTIONS preflight request to the server to determine if the actual request (e.g., GET, POST, etc.) is allowed. The server responds with appropriate headers indicating the allowed origins, methods, and headers.
+-  You can configure Express to handle CORS by using the **cors middleware package**:
+    - Install the `cors` package using npm:
+    ```bash
+    npm install cors
+    ```
+    - Require the cors package and use it as middleware. With the `app.use(cors())` middleware, you enable **CORS** for all routes in your Express application. This allows any origin to access your server's resources.
+    ```js
+    const express = require('express');
+    const cors = require('cors');
+    
+    const app = express();
+    
+    // Enable CORS for all routes
+    app.use(cors());
+    
+    // Your route handlers go here
+    
+    // Start the server
+    app.listen(3000, () => {
+      console.log('Server listening on port 3000');
+    });
+
+    ```
+    - You can also configure more specific CORS options if needed. For example, you can restrict access to specific origins, allow only certain HTTP methods, or set custom headers.:
+    ```js
+    app.use(cors({
+      origin: 'https://example.com',
+      methods: ['GET', 'POST'],
+    }));
+    ```
